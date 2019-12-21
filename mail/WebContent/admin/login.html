@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>零售电商 | 登录</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="AdminLTE/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="AdminLTE/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="AdminLTE/dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="AdminLTE/plugins/iCheck/square/blue.css">
+
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>管理员</b>登录</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">欢迎您的登录</p>
+
+    <form>
+      <div class="form-group has-feedback">
+        <input id="input_username" type="text" class="form-control" placeholder="账号">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input id="input_password" type="password" class="form-control" placeholder="密码">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+            <label>
+              <span id="errMsg" style="color:red"></span>
+            </label>
+          </div>
+        </div>
+        <!-- /.col -->
+        
+        <div class="col-xs-4" id="btn-login">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+
+    <div class="social-auth-links text-center">
+      <p>- 第三方 -</p>
+      <a href="#" class="btn btn-block btn-social btn-github"><i class="fa fa-github"></i> 
+        微信登录</a>
+      <a href="#" class="btn btn-block btn-social btn-twitter"><i class="fa fa-twitter"></i> 
+        QQ登录</a>
+    </div>
+    <!-- /.social-auth-links -->
+
+    <a href="#">忘记密码</a><br>
+    <a href="register.html" class="text-center">联系系统管理员</a>
+
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery 3 -->
+<!-- <script src="resources/js/jquery.min.js"></script> -->
+<script src="resources/js/jquery-3.3.1.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="resources/js/require.js" defer async="true"></script>
+<script>
+$(function () {
+	//1.给登录按钮绑定单击事件
+	$("#btn-login").click(function () {
+		//2.发送ajax请求，提交表单数据
+		//获取用户名
+		var baseUrl="http://localhost:8080/mail/";
+		var input_username = $("#input_username").val();
+		//判断用户名是否为空
+		if(input_username==""){
+			$("#errMsg").html("请填写用户名");
+			$("#input_username").focus();
+			return false;
+		}
+		//获取密码
+		var input_password = $("#input_password").val();
+		//判断密码是否为空
+		if(input_password==""){
+			$("#errMsg").html("请填写密码");
+			$("#input_password").focus();
+			return false;
+		}
+		$.post(baseUrl+"mgr/user/login.do",{"account":input_username,"password":input_password},function (data) {
+			$("#errMsg").html("正在登录");
+			if(data.status==0){
+				location.href="starter.html";
+			}
+			else {
+				alert(data.msg);
+			}
+		});
+});
+});
+</script>
+<!--<script type="text/javascript" src="resources/js/require.js" data-main="resources/js/login_main">-->
+</body>
+</html>

@@ -1,0 +1,26 @@
+require.config({
+	paths:{
+		"jquery":"jquery.min",
+		"bootstrap":"/mail/WebContent/admin/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min",
+		"datatables.net":"/mail/WebContent/admin/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min",
+		"bsdataTables":"/mail/WebContent/admin/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.",
+		"adminlte":"/mail/WebContent/admin/AdminLTE/bower_components/bootstrap/dist/js/adminlte.min"
+	},
+	shim:{
+		'bootstrap':['jquery'],
+		'bsdataTables':['bootstrap'],
+		'fnReloadAjax':['jquery','datatables.net'],
+		'adminlte':['bootstrap']
+	}
+});
+
+//登录页
+require(['adminlte','common','login'],function(adminlte,common,login){
+	//登录方法
+	$(function(){
+		//用户校验
+		common.userCalibration();
+		//绑定登录按钮点击事件
+		login.clickLogin();
+	});
+});
